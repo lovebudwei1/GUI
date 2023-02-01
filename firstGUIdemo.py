@@ -35,26 +35,27 @@ def change_op(*args):
     list3.current(0)
 
 
-win = tkinter.Tk()
-mode = tkinter.StringVar()
-langlist = tkinter.StringVar()
-langlist2 = tkinter.StringVar()
-list1 = ttk.Combobox(win, textvariable=mode, state='readonly', width=10)
-list1.bind("<<ComboboxSelected>>", change_area)
-cur = db.cursor()
+win = tkinter.Tk() # 创建窗口
+mode = tkinter.StringVar()  # 创建变量
+langlist = tkinter.StringVar() # 创建变量
+langlist2 = tkinter.StringVar() # 创建变量
+list1 = ttk.Combobox(win, textvariable=mode, state='readonly', width=10) # 创建下拉列表
+list1.bind("<<ComboboxSelected>>", change_area) # 绑定事件,(下拉列表框被选中时，绑定change_area()函数)
+cur = db.cursor() # 创建游标
 cur.execute("SELECT areaid,areaname FROM area")
 cur_area = cur.fetchall()
 list_area = []
 for i in cur_area:
     list_area.append(('%s' + ',' + '%s') % (i[0], i[1]))
-list1["value"] = list_area
-list1.current(0)
-list2 = ttk.Combobox(win, textvariable=langlist, state='readonly')
-list2.bind("<<ComboboxSelected>>", change_op)
-list2.config(values=[" "])
-list2.current(0)
-list3 = ttk.Combobox(win, textvariable=langlist2, state='readonly')
-list3.config(values=[" "])
+list1["value"] = list_area  # 设置下拉列表的值
+list1.current(0) # 设置下拉列表默认显示的值，0为 numberChosen['values'] 的下标值
+list2 = ttk.Combobox(win, textvariable=langlist, state='readonly') # 创建下拉列表
+list2.bind("<<ComboboxSelected>>", change_op) # 绑定事件,(下拉列表框被选中时，绑定change_op()函数)
+list2.config(values=[" "]) # 设置下拉列表的值
+list2.current(0) # 设置下拉列表默认显示的值，0为 numberChosen['values'] 的下标值
+list3 = ttk.Combobox(win, textvariable=langlist2, state='readonly') # 创建下拉列表
+list3.config(values=[" "]) # 设置下拉列表的值
+
 list1.pack()
 list2.pack()
 list3.pack()
